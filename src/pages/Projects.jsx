@@ -45,16 +45,7 @@ const Projects = () => {
         demoLink: 'https://hemanth-cvportfolio.netlify.app',
         githubLink: 'https://github.com/Hemanth1901130/CVPortfolio',
       },
-      {
-        id: 4,
-        title: 'Hotel Review App',
-        description: 'A mobile application developed during my internship at EISYSTEMS SERVICES for collecting and managing hotel customer feedback and reviews, with intuitive UI and data visualization.',
-        image: '/project4.jpg',
-        technologies: ['Java', 'Android Studio', 'SQLite'],
-        category: 'mobile-app',
-        demoLink: '#',
-        githubLink: '#',
-      },
+      
     ];
 
     setProjects(projectsData);
