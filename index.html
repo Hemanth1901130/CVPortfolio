@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Professional Frontend Developer Portfolio - 8 years of experience building modern, interactive web applications"
+    />
+    <meta
+      name="keywords"
+      content="frontend developer, react developer, web developer, javascript, portfolio"
+    />
+    <meta name="author" content="Your Name" />
+    <title>Frontend Developer Portfolio</title>
+    <!-- Add Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "var(--color-primary, #0ea5e9)",
+              secondary: "var(--color-secondary, #6366f1)",
+              dark: "var(--color-dark, #0f172a)",
+              light: "var(--color-light, #f8fafc)",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            animation: {
+              "bounce-slow": "bounce 3s infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Add Inter font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --color-primary: #0ea5e9;
+        --color-secondary: #6366f1;
+        --color-dark: #0f172a;
+        --color-light: #f8fafc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
