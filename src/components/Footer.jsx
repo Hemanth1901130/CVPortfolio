@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiTwitter, FiMail } from 'react-icons/fi';
+import profImage from '../assets/images/prof.jpg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -25,7 +26,7 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary shadow-md hidden md:block">
                 <img
-                  src="/src/assets/images/prof.jpg"
+                  src={profImage}
                   alt="Pamarthi Hemanth Srinivas"
                   className="w-full h-full object-cover"
                 />

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion as m } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
 import ThemeSwitch from './ThemeSwitch';
+import profImage from '../assets/images/prof.jpg';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ const Navbar = () => {
           >
             <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary shadow-md hidden sm:block">
               <img
-                src="/src/assets/images/prof.jpg"
+                src= {profImage}
                 alt="Pamarthi Hemanth Srinivas"
                 className="w-full h-full object-cover"
               />
