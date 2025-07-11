@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiExternalLink, FiGithub, FiFilter } from 'react-icons/fi';
+import learningPlatformImage from '../assets/images/learning-platform-screenshot.png';
+import escapeGameImage from '../assets/images/escape-game-screenshot.png';
+import portfolioImage from '../assets/images/portfolio-screenshot.png';
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -14,63 +17,43 @@ const Projects = () => {
     const projectsData = [
       {
         id: 1,
-        title: 'Insurance Platform UI',
-        description: 'A responsive frontend for an insurance platform with user-friendly forms, interactive elements, and seamless API integration.',
-        image: '/project1.jpg',
-        technologies: ['React.js', 'HTML', 'CSS', 'REST API'],
+        title: 'Interactive Learning Platform',
+        description: 'A comprehensive online learning platform with course management, video lessons, and user authentication. Features include a dashboard for tracking progress, detailed course pages, and an intuitive lesson player for educational content.',
+        image: learningPlatformImage,
+        technologies: ['React.js', 'Tailwind CSS', 'Context API', 'Authentication'],
         category: 'web-app',
-        demoLink: 'https://example.com/demo1',
-        githubLink: 'https://github.com/yourusername/project1',
+        demoLink: 'https://hemanth-learningplatform.netlify.app',
+        githubLink: 'https://github.com/Hemanth1901130/LearningPlatform',
       },
       {
         id: 2,
-        title: 'Hotel Review App',
-        description: 'A mobile application developed during my internship at EISYSTEMS SERVICES for collecting and managing hotel customer feedback and reviews, with intuitive UI and data visualization.',
-        image: '/project2.jpg',
-        technologies: ['Java', 'Android Studio', 'SQLite'],
-        category: 'mobile-app',
-        demoLink: 'https://example.com/demo2',
-        githubLink: 'https://github.com/yourusername/project2',
+        title: 'Find The Key - Escape Game',
+        description: 'An immersive browser-based escape room game where players use a flashlight to find hidden items and solve puzzles. Features interactive gameplay elements, inventory management, and progressive difficulty levels.',
+        image: escapeGameImage,
+        technologies: ['React.js', 'Tailwind CSS', 'Framer Motion', 'Context API'],
+        category: 'game',
+        demoLink: 'https://hemanth-findthekey.netlify.app',
+        githubLink: 'https://github.com/Hemanth1901130/EscapeGame',
       },
       {
         id: 3,
         title: 'Personal Portfolio Website',
-        description: 'A responsive portfolio website showcasing skills, projects, and contact information with modern design and animations.',
-        image: '/project3.jpg',
-        technologies: ['React.js', 'Tailwind CSS', 'Framer Motion'],
+        description: 'A responsive portfolio website showcasing my skills, projects, and professional journey. Features smooth animations, dark/light mode, and a clean, modern design optimized for all devices.',
+        image: portfolioImage,
+        technologies: ['React.js', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
         category: 'website',
-        demoLink: 'https://example.com/demo3',
-        githubLink: 'https://github.com/yourusername/project3',
+        demoLink: 'https://hemanth-cvportfolio.netlify.app',
+        githubLink: 'https://github.com/Hemanth1901130/CVPortfolio',
       },
       {
         id: 4,
-        title: 'Task Management Dashboard',
-        description: 'A web application for managing tasks and projects with user authentication, task filtering, and progress tracking.',
+        title: 'Hotel Review App',
+        description: 'A mobile application developed during my internship at EISYSTEMS SERVICES for collecting and managing hotel customer feedback and reviews, with intuitive UI and data visualization.',
         image: '/project4.jpg',
-        technologies: ['React.js', 'HTML', 'CSS', 'MySQL'],
-        category: 'web-app',
-        demoLink: 'https://example.com/demo4',
-        githubLink: 'https://github.com/yourusername/project4',
-      },
-      {
-        id: 5,
-        title: 'E-commerce Product Page',
-        description: 'A responsive product page for an e-commerce website with product details, image gallery, and add-to-cart functionality.',
-        image: '/project5.jpg',
-        technologies: ['HTML', 'CSS', 'JavaScript'],
-        category: 'website',
-        demoLink: 'https://example.com/demo5',
-        githubLink: 'https://github.com/yourusername/project5',
-      },
-      {
-        id: 6,
-        title: 'Weather App',
-        description: 'A weather application that provides real-time forecasts and location-based weather data with a clean, intuitive interface.',
-        image: '/project6.jpg',
-        technologies: ['React.js', 'Weather API', 'CSS'],
-        category: 'web-app',
-        demoLink: 'https://example.com/demo6',
-        githubLink: 'https://github.com/yourusername/project6',
+        technologies: ['Java', 'Android Studio', 'SQLite'],
+        category: 'mobile-app',
+        demoLink: '#',
+        githubLink: '#',
       },
     ];
 
@@ -196,10 +179,18 @@ const Projects = () => {
               >
                 {/* Project Image */}
                 <div className="h-48 bg-gray-200 dark:bg-gray-700 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
-                    {/* Placeholder for project image */}
-                    <span className="text-4xl">{project.title.charAt(0)}</span>
-                  </div>
+                  {project.image && project.image !== '#' ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
+                      {/* Placeholder for project image */}
+                      <span className="text-4xl">{project.title.charAt(0)}</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Project Content */}
