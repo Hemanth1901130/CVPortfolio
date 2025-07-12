@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { FiCode, FiUsers, FiLayers, FiMonitor } from 'react-icons/fi';
-
+import codreJava from '../assets/images/CoreJavaCertificate.pdf';
+import crackTheCase from '../assets/images/CrackTheCase.pdf';
+import androidDev from '../assets/images/21ESYSN1024.pdf';
 const About = () => {
   const skills = [
     { name: 'Frontend Development', icon: <FiCode size={24} />, description: 'Building responsive and interactive user interfaces with modern frameworks and libraries.' },
@@ -206,7 +208,7 @@ const About = () => {
                 </div>
                 <div className="mt-2 md:mt-0">
                   <a
-                    href="/src/assets/images/CoreJavaCertificate.pdf"
+                    href={codreJava}
                     target="_blank"
                     className="bg-primary/10 px-3 py-1 rounded-full text-sm text-primary hover:bg-primary/20 transition-colors"
                   >
@@ -233,7 +235,7 @@ const About = () => {
               </p>
               <div className="mt-2">
                 <a
-                  href="/src/assets/images/CrackTheCase.pdf"
+                  href= {crackTheCase}
                   target="_blank"
                   className="text-primary hover:underline text-sm"
                 >
@@ -259,7 +261,7 @@ const About = () => {
               </p>
               <div className="mt-2">
                 <a
-                  href="/src/assets/images/21ESYSN1024.pdf"
+                  href= {androidDev}
                   target="_blank"
                   className="text-primary hover:underline text-sm"
                 >

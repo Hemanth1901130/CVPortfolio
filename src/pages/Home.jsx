@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiDownload } from 'react-icons/fi';
 import HeroScene from '../components/HeroScene';
+import cvPdf from '../assets/images/Pamarthi_HemanthSrinivas_CV.pdf';
 
 const Home = () => {
   return (
@@ -54,7 +55,7 @@ const Home = () => {
                 View My Work <FiArrowRight />
               </Link>
               <a
-                href="/src/assets/images/Pamarthi_HemanthSrinivas_CV.pdf"
+                href={cvPdf}
                 className="btn btn-outline flex items-center justify-center gap-2"
                 download
               >
