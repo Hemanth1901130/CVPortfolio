@@ -22,7 +22,7 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              Frontend Developer
+              SDE
             </motion.span>
             
             <motion.h1 
@@ -35,7 +35,7 @@ const Home = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-gray-600 dark:text-gray-300 text-lg mb-8"
+              className="text-gray-600 dark:text-white text-lg mb-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.7 }}

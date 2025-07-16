@@ -14,7 +14,7 @@ const NotFound = () => {
         >
           <h1 className="text-9xl font-bold text-primary mb-4">404</h1>
           <h2 className="text-3xl md:text-4xl font-bold text-dark dark:text-light mb-6">Page Not Found</h2>
-          <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-white text-lg mb-8 max-w-2xl mx-auto">
             The page you are looking for might have been removed, had its name changed, 
             or is temporarily unavailable.
           </p>

@@ -50,7 +50,7 @@ const Footer = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors"
+                className="text-gray-500 hover:text-primary dark:text-white dark:hover:text-primary transition-colors"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label={link.label}
@@ -68,7 +68,7 @@ const Footer = () => {
           viewport={{ once: true }}
           className="mt-8 text-center"
         >
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-white">
             Built with React, Tailwind CSS, and Framer Motion
           </p>
         </motion.div>

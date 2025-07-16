@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { FiMail, FiMapPin, FiPhone, FiSend } from 'react-icons/fi';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,24 +25,40 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
+    
+    const serviceId = 'service_3ybzeml'; 
+    const templateId = 'template_0s0b7vs';
+    const publicKey = 'Jyb_YXQ2V87ZLZsMt'; 
+
+    emailjs.sendForm(serviceId, templateId, form.current, publicKey)
+      .then((result) => {
+        console.log('Email sent successfully:', result.text);
+        setIsSubmitting(false);
+        setSubmitStatus('success');
+        
+        // Reset form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+        
+        // Reset status after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus(null);
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error('Failed to send email:', error.text);
+        setIsSubmitting(false);
+        setSubmitStatus('error');
+        
+        // Reset error status after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus(null);
+        }, 5000);
       });
-      
-      // Reset status after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus(null);
-      }, 5000);
-    }, 1500);
   };
   
   const contactInfo = [
@@ -82,7 +100,7 @@ const Contact = () => {
         >
           <h2 className="text-3xl md:text-4xl font-bold text-dark dark:text-light mb-4">Get In Touch</h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-          <p className="max-w-3xl mx-auto text-gray-600 dark:text-gray-300 text-lg">
+          <p className="max-w-3xl mx-auto text-gray-600 dark:text-white text-lg">
             Have a project in mind or want to discuss potential opportunities? 
             Feel free to reach out to me using the contact form below.
           </p>
@@ -99,9 +117,9 @@ const Contact = () => {
           >
             <h3 className="text-2xl font-bold text-dark dark:text-light mb-6">Send Me a Message</h3>
             
-            <form onSubmit={handleSubmit}>
+            <form ref={form} onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
                   Your Name
                 </label>
                 <input
@@ -117,7 +135,7 @@ const Contact = () => {
               </div>
               
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
                   Your Email
                 </label>
                 <input
@@ -133,7 +151,7 @@ const Contact = () => {
               </div>
               
               <div className="mb-4">
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
                   Subject
                 </label>
                 <input
@@ -149,7 +167,7 @@ const Contact = () => {
               </div>
               
               <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
                   Your Message
                 </label>
                 <textarea
@@ -196,6 +214,17 @@ const Contact = () => {
                   Your message has been sent successfully! I'll get back to you soon.
                 </motion.div>
               )}
+              
+              {submitStatus === 'error' && (
+                <motion.div
+                  className="mt-4 p-3 bg-red-100 text-red-700 rounded-md"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
+                  Failed to send your message. Please try again later.
+                </motion.div>
+              )}
             </form>
           </motion.div>
           
@@ -228,7 +257,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="text-lg font-semibold text-dark dark:text-light">{info.title}</h4>
-                      <p className="text-gray-600 dark:text-gray-300 group-hover:text-primary dark:group-hover:text-primary transition-colors">
+                      <p className="text-gray-600 dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
                         {info.content}
                       </p>
                     </div>
@@ -246,7 +275,7 @@ const Contact = () => {
               viewport={{ once: true }}
             >
               <h3 className="text-2xl font-bold text-dark dark:text-light mb-4">My Availability</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <p className="text-gray-600 dark:text-white mb-4">
                 I'm currently available for frontend development opportunities.
                 I'm passionate about creating responsive and user-friendly web applications.
               </p>

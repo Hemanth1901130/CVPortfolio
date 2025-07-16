@@ -29,6 +29,8 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Skills', path: '/skills' },
+    { name: 'Experience', path: '/experience' },
+    { name: 'Education', path: '/education' },
     { name: 'Projects', path: '/projects' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -51,7 +53,7 @@ const Navbar = () => {
               />
             </div>
             <Link to="/" className="text-2xl font-bold text-primary">
-              <span className="text-dark dark:text-light">Port</span>folio
+              <span className="text-dark dark:text-light">Pamarthi</span>Hemanth Srinivas
             </Link>
           </m.div>
 
@@ -73,6 +75,7 @@ const Navbar = () => {
                 </m.div>
               ))}
               
+              {/* Theme Switch commented out as requested
               <m.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -80,13 +83,16 @@ const Navbar = () => {
               >
                 <ThemeSwitch />
               </m.div>
+              */}
             </div>
           </div>
 
           <div className="md:hidden flex items-center">
+            {/* Theme Switch commented out as requested
             <div className="mr-2">
               <ThemeSwitch />
             </div>
+            */}
             <m.button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-dark dark:text-light hover:text-primary dark:hover:text-primary focus:outline-none"

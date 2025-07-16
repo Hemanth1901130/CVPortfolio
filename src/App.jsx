@@ -6,6 +6,8 @@ import CustomCursor from './components/CustomCursor';
 import Home from './pages/Home';
 import About from './pages/About';
 import Skills from './pages/Skills';
+import Experience from './pages/Experience';
+import Education from './pages/Education';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
@@ -34,6 +36,16 @@ function App() {
           <Route path="/skills" element={
             <Layout>
               <Skills />
+            </Layout>
+          } />
+          <Route path="/experience" element={
+            <Layout>
+              <Experience />
+            </Layout>
+          } />
+          <Route path="/education" element={
+            <Layout>
+              <Education />
             </Layout>
           } />
           <Route path="/projects" element={
