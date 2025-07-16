@@ -1,8 +1,10 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 
+const ThemeContext = createContext();
+
 const themes = {
   blue: {
-    primary: '#0ea5e9',
+    primary: '#00415fff',
     secondary: '#6366f1',
     dark: '#0f172a',
     light: '#f8fafc'
@@ -33,8 +35,6 @@ const themes = {
   }
 };
 
-const ThemeContext = createContext();
-
 export const ThemeProvider = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState('blue');
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -43,7 +43,10 @@ export const ThemeProvider = ({ children }) => {
     const savedTheme = localStorage.getItem('theme-color') || 'blue';
     const savedMode = localStorage.getItem('theme-mode') === 'dark';
     
-    setCurrentTheme(savedTheme);
+    // Make sure the theme exists in our themes object
+    const themeToUse = themes[savedTheme] ? savedTheme : 'blue';
+    
+    setCurrentTheme(themeToUse);
     setIsDarkMode(savedMode);
     
     if (savedMode) {
@@ -52,11 +55,12 @@ export const ThemeProvider = ({ children }) => {
       document.documentElement.classList.remove('dark');
     }
     
-    applyThemeColors(savedTheme);
+    applyThemeColors(themeToUse);
   }, []);
 
   const applyThemeColors = (themeName) => {
-    const theme = themes[themeName];
+    // Default to blue theme if the requested theme doesn't exist
+    const theme = themes[themeName] || themes.blue;
     
     document.documentElement.style.setProperty('--color-primary', theme.primary);
     document.documentElement.style.setProperty('--color-secondary', theme.secondary);

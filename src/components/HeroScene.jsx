@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, Text } from '@react-three/drei';
 import * as THREE from 'three';
@@ -239,14 +239,82 @@ function Particles({ count = 100 }) {
 
 // Main scene component
 const HeroScene = () => {
+  const [contextLost, setContextLost] = useState(false);
+  
+  useEffect(() => {
+    const handleContextLost = (event) => {
+      event.preventDefault(); // This allows the context to be restored
+      setContextLost(true);
+      console.warn('WebGL context lost. Attempting to restore...');
+    };
+    
+    const handleContextRestored = () => {
+      setContextLost(false);
+      console.log('WebGL context restored successfully');
+    };
+    
+    window.addEventListener('webglcontextlost', handleContextLost);
+    window.addEventListener('webglcontextrestored', handleContextRestored);
+    
+    return () => {
+      window.removeEventListener('webglcontextlost', handleContextLost);
+      window.removeEventListener('webglcontextrestored', handleContextRestored);
+    };
+  }, []);
+  
+  if (contextLost) {
+    return (
+      <div className="w-full h-full absolute inset-0 flex items-center justify-center bg-gradient-to-r from-indigo-500 to-blue-500 bg-opacity-20 rounded-xl">
+        <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">3D Rendering Unavailable</h3>
+          <p className="text-gray-600 dark:text-gray-300">Your browser encountered an issue with 3D rendering.</p>
+          <div className="mt-4 flex justify-center">
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className="w-full h-full absolute inset-0" style={{ pointerEvents: 'none' }}>
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
         style={{ background: 'transparent' }}
-        dpr={[1, 1.5]} // Lower DPR for better performance
-        gl={{ antialias: true, alpha: true }}
-        performance={{ min: 0.5 }} // Improve performance
+        dpr={[0.8, 1.2]} // Even lower DPR for better performance
+        gl={{
+          antialias: false, // Disable antialiasing for better performance
+          alpha: true,
+          powerPreference: 'low-power', // Prefer low power mode
+          failIfMajorPerformanceCaveat: false, // Don't fail on low-end devices
+          preserveDrawingBuffer: false // Better performance
+        }}
+        frameloop="demand" // Only render when needed
+        performance={{ min: 0.3 }} // Lower performance threshold
+        onCreated={({ gl }) => {
+          // Add error handling for WebGL context
+          if (gl && gl.canvas) {
+            gl.canvas.addEventListener('webglcontextlost', (event) => {
+              event.preventDefault();
+              setContextLost(true);
+              console.warn('WebGL context lost in Canvas component');
+            });
+            
+            gl.canvas.addEventListener('webglcontextrestored', () => {
+              setContextLost(false);
+              console.log('WebGL context restored in Canvas component');
+            });
+            
+            // Set renderer parameters for better stability
+            gl.setClearColor(0x000000, 0); // Transparent background
+            gl.setPixelRatio(Math.min(window.devicePixelRatio, 1.2)); // Limit pixel ratio
+          }
+        }}
       >
         {/* Simplified lighting for better performance */}
         <ambientLight intensity={1.0} />

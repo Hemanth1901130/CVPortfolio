@@ -18,10 +18,10 @@ const Layout = ({ children }) => {
   }, []);
   
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-400 to-blue-600">
       {isLoading ? (
-        <m.div 
-          className="fixed inset-0 flex items-center justify-center bg-light dark:bg-dark z-50"
+        <m.div
+          className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600 z-50"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
@@ -50,7 +50,9 @@ const Layout = ({ children }) => {
         </m.div>
       ) : (
         <AnimatePresence>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen relative">
+            {/* Global blue gradient background */}
+            <div className="fixed inset-0 bg-gradient-to-br from-blue-400 to-blue-600 -z-20"></div>
             <ScrollProgress />
             <Navbar />
             <main className="flex-grow">

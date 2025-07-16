@@ -2,41 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/h-logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Professional Frontend Developer Portfolio - 8 years of experience building modern, interactive web applications"
+      content="Professional Frontend Developer Portfolio"
     />
     <meta
       name="keywords"
       content="frontend developer, react developer, web developer, javascript, portfolio"
     />
-    <meta name="author" content="Your Name" />
-    <title>Frontend Developer Portfolio</title>
-    <!-- Add Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "var(--color-primary, #0ea5e9)",
-              secondary: "var(--color-secondary, #6366f1)",
-              dark: "var(--color-dark, #0f172a)",
-              light: "var(--color-light, #f8fafc)",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
-            animation: {
-              "bounce-slow": "bounce 3s infinite",
-            },
-          },
-        },
-      };
-    </script>
+    <meta name="author" content="Hemanth Srinivas Pamarthi" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Hemanth Portfolio" />
+    <link rel="apple-touch-icon" href="/pwa-192x192.png" />
+    <link rel="mask-icon" href="/h-logo.svg" color="#0ea5e9" />
+    
+    <title>Hemanth Portfolio</title>
     <!-- Add Inter font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -50,6 +37,15 @@
         --color-light: #f8fafc;
       }
     </style>
+    
+    <!-- Umami Analytics - Privacy-focused analytics -->
+    <!-- Commented out to fix the error
+    <script async defer
+      src="https://analytics.example.com/script.js"
+      data-website-id="your-website-id"
+      data-domains="yourdomain.com"
+    ></script>
+    -->
   </head>
   <body>
     <div id="root"></div>
