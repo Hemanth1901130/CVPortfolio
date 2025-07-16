@@ -13,7 +13,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-dark py-8 border-t border-gray-200 dark:border-gray-800">
+    <footer className="bg-transparent backdrop-blur-sm py-8 border-t border-gray-200/20 dark:border-gray-800/20 glass">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <motion.div
@@ -31,7 +31,7 @@ const Footer = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <p className="text-dark dark:text-light text-sm">
+              <p className="text-dark dark:text-light text-sm font-medium">
                 © {currentYear} Pamarthi Hemanth Srinivas. All rights reserved.
               </p>
             </div>
@@ -50,7 +50,7 @@ const Footer = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-primary dark:text-white dark:hover:text-primary transition-colors"
+                className="text-dark hover:text-primary dark:text-light dark:hover:text-primary transition-colors"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label={link.label}
@@ -68,7 +68,7 @@ const Footer = () => {
           viewport={{ once: true }}
           className="mt-8 text-center"
         >
-          <p className="text-sm text-gray-500 dark:text-white">
+          <p className="text-sm text-dark dark:text-light font-medium">
             Built with React, Tailwind CSS, and Framer Motion
           </p>
         </motion.div>

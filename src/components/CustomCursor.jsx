@@ -1,156 +1,127 @@
-import { useState, useEffect, useRef } from 'react';
-import { AnimatePresence } from 'framer-motion';
-// eslint-disable-next-line no-unused-vars
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const CustomCursor = () => {
-  // We're not using isDarkMode in this simplified version
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isPointer, setIsPointer] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
-  const cursorOuterRef = useRef(null);
-  const cursorInnerRef = useRef(null);
-
-  // Check if device is touch-enabled
-  const isTouchDevice = () => {
-    return (('ontouchstart' in window) ||
-      (navigator.maxTouchPoints > 0) ||
-      (navigator.msMaxTouchPoints > 0));
-  };
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cursorVariant, setCursorVariant] = useState('default');
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Don't show custom cursor on touch devices
-    if (isTouchDevice()) {
-      return;
-    }
+    // Check if user prefers reduced motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
 
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      
-      // Show cursor after first movement
-      if (!isVisible) {
-        setIsVisible(true);
-      }
+    // Add listener for changes to motion preference
+    const handleMotionPreferenceChange = (e) => {
+      setPrefersReducedMotion(e.matches);
     };
-
-    const handleMouseDown = () => {
-      setIsClicking(true);
-    };
-
-    const handleMouseUp = () => {
-      setIsClicking(false);
-    };
-
-    const handleMouseEnter = () => {
-      setIsVisible(true);
-    };
-
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
-
-    // Check if cursor is over a clickable element
-    const handleElementHover = () => {
-      const hoveredElement = document.elementFromPoint(position.x, position.y);
-      
-      if (hoveredElement) {
-        const computedStyle = window.getComputedStyle(hoveredElement);
-        const isClickable = 
-          hoveredElement.tagName === 'BUTTON' || 
-          hoveredElement.tagName === 'A' || 
-          hoveredElement.tagName === 'INPUT' || 
-          hoveredElement.tagName === 'TEXTAREA' || 
-          hoveredElement.tagName === 'SELECT' || 
-          computedStyle.cursor === 'pointer';
-        
-        setIsPointer(isClickable);
-      }
-    };
-
-    // Hide default cursor
-    document.body.style.cursor = 'none';
     
-    // Log to confirm the component is running
-    console.log('CustomCursor component is active');
-
-    // Add event listeners
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseenter', handleMouseEnter);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    mediaQuery.addEventListener('change', handleMotionPreferenceChange);
     
-    // Check for hoverable elements on mousemove instead of interval
-    const throttledHandleElementHover = () => {
-      requestAnimationFrame(handleElementHover);
+    const mouseMove = (e) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
     };
-    window.addEventListener('mousemove', throttledHandleElementHover);
 
-    // Cleanup
+    window.addEventListener('mousemove', mouseMove);
+
     return () => {
-      document.body.style.cursor = 'auto';
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('mouseenter', handleMouseEnter);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('mousemove', throttledHandleElementHover);
+      window.removeEventListener('mousemove', mouseMove);
+      mediaQuery.removeEventListener('change', handleMotionPreferenceChange);
     };
-  }, [isVisible]); // Remove position from dependency array to prevent re-running effect on every mouse move
+  }, []);
 
-  // Don't render on touch devices
-  if (isTouchDevice()) {
-    return null;
-  }
+  useEffect(() => {
+    const handleLinkHover = () => setCursorVariant('link');
+    const handleLinkLeave = () => setCursorVariant('default');
+
+    // Add event listeners to all links and buttons
+    const links = document.querySelectorAll('a, button, .btn');
+    links.forEach(link => {
+      link.addEventListener('mouseenter', handleLinkHover);
+      link.addEventListener('mouseleave', handleLinkLeave);
+    });
+
+    return () => {
+      links.forEach(link => {
+        link.removeEventListener('mouseenter', handleLinkHover);
+        link.removeEventListener('mouseleave', handleLinkLeave);
+      });
+    };
+  }, []);
+
+  const variants = {
+    default: {
+      x: mousePosition.x - 16,
+      y: mousePosition.y - 16,
+      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      border: '2px solid rgba(255, 255, 255, 0.4)',
+      transition: {
+        type: 'spring',
+        mass: 0.6
+      }
+    },
+    link: {
+      x: mousePosition.x - 24,
+      y: mousePosition.y - 24,
+      height: 48,
+      width: 48,
+      backgroundColor: 'rgba(79, 70, 229, 0.1)',
+      border: '2px solid rgba(79, 70, 229, 0.6)',
+      transition: {
+        type: 'spring',
+        mass: 0.6
+      }
+    }
+  };
+
+  // Only show custom cursor on non-touch devices and if user doesn't prefer reduced motion
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  if (isTouchDevice || prefersReducedMotion) return null;
 
   return (
-    <AnimatePresence>
-      {/* Outer cursor (larger circle) */}
+    <>
       <motion.div
-        key="outer-cursor"
-        ref={cursorOuterRef}
-        className="fixed pointer-events-none z-[9999] w-8 h-8 rounded-full border-2 border-red-500"
-        style={{
-          top: 0,
-          left: 0,
-          borderWidth: '3px',
-        }}
+        className="custom-cursor-outer fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-50"
+        variants={variants}
+        animate={cursorVariant}
+        aria-hidden="true"
+      />
+      <motion.div
+        className="custom-cursor-dot fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-50"
         animate={{
-          x: position.x - 16,
-          y: position.y - 16,
-          scale: isPointer ? 1.5 : isClicking ? 0.75 : 1,
-          opacity: isVisible ? 1 : 0
+          x: mousePosition.x - 4,
+          y: mousePosition.y - 4
         }}
         transition={{
-          type: 'tween', // Use tween instead of spring for better performance
-          duration: 0.15,
-          ease: 'linear'
+          type: 'spring',
+          mass: 0.2
         }}
+        aria-hidden="true"
       />
-
-      {/* Inner cursor (small dot) */}
-      <motion.div
-        key="inner-cursor"
-        ref={cursorInnerRef}
-        className="fixed pointer-events-none z-[9999] w-4 h-4 rounded-full bg-red-500"
-        style={{
-          top: 0,
-          left: 0,
-        }}
-        animate={{
-          x: position.x - 4,
-          y: position.y - 4,
-          scale: isPointer ? 0 : isClicking ? 1.5 : 1,
-          opacity: isVisible ? 1 : 0
-        }}
-        transition={{
-          type: 'tween', // Use tween instead of spring for better performance
-          duration: 0.1,
-          ease: 'linear'
-        }}
-      />
-    </AnimatePresence>
+      <style jsx="jsx" global="global">{`
+        body {
+          cursor: none;
+        }
+        
+        a, button, .btn {
+          cursor: none;
+        }
+        
+        @media (max-width: 768px) {
+          body, a, button, .btn {
+            cursor: auto;
+          }
+        }
+      `}</style>
+    </>
   );
 };
 

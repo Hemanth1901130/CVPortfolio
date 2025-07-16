@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate PWA Icons</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .icon-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #0ea5e9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0284c7;
+    }
+    h1, h2 {
+      color: #0ea5e9;
+    }
+    .instructions {
+      background-color: #f0f9ff;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>PWA Icon Generator</h1>
+  
+  <div class="instructions">
+    <h2>Instructions</h2>
+    <p>This utility helps you generate PNG icons from SVG files for your Progressive Web App.</p>
+    <ol>
+      <li>Click the "Generate Icons" button below to render the SVG icons to canvas elements.</li>
+      <li>Right-click on each canvas and select "Save image as..." to save the PNG files.</li>
+      <li>Save them with the names "pwa-192x192.png" and "pwa-512x512.png" in the public folder.</li>
+    </ol>
+  </div>
+  
+  <button id="generateBtn">Generate Icons</button>
+  
+  <div class="icon-container">
+    <h2>192x192 Icon</h2>
+    <div class="icon-row">
+      <img id="svg192" width="192" height="192" alt="192x192 SVG">
+      <canvas id="canvas192" width="192" height="192"></canvas>
+    </div>
+    
+    <h2>512x512 Icon</h2>
+    <div class="icon-row">
+      <img id="svg512" width="512" height="512" alt="512x512 SVG">
+      <canvas id="canvas512" width="512" height="512"></canvas>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('generateBtn').addEventListener('click', function() {
+      // Load 192x192 SVG
+      const svg192 = document.getElementById('svg192');
+      svg192.src = '/pwa-192x192.svg';
+      svg192.onload = function() {
+        const canvas192 = document.getElementById('canvas192');
+        const ctx192 = canvas192.getContext('2d');
+        ctx192.clearRect(0, 0, canvas192.width, canvas192.height);
+        ctx192.drawImage(svg192, 0, 0, 192, 192);
+      };
+      
+      // Load 512x512 SVG
+      const svg512 = document.getElementById('svg512');
+      svg512.src = '/pwa-512x512.svg';
+      svg512.onload = function() {
+        const canvas512 = document.getElementById('canvas512');
+        const ctx512 = canvas512.getContext('2d');
+        ctx512.clearRect(0, 0, canvas512.width, canvas512.height);
+        ctx512.drawImage(svg512, 0, 0, 512, 512);
+      };
+    });
+  </script>
+</body>
+</html>
