@@ -140,7 +140,7 @@ const Navbar = () => {
             >
               <Link
                 to={link.path}
-                className="block px-4 py-3 rounded-md text-base font-medium text-dark dark:text-light hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-primary transition-colors"
+                className="block px-4 py-3 rounded-md text-base font-medium text-dark dark:text-secondary hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-primary transition-colors"
                 onClick={() => setIsOpen(false)}
                 role="menuitem"
               >
