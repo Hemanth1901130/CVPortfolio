@@ -3,13 +3,11 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
-// 3D Model component
 function CodeModel(props) {
   const mesh = useRef();
   
-  // Rotate the model
   useFrame((state) => {
-    mesh.current.rotation.y = state.clock.getElapsedTime() * 0.3; // Faster rotation
+    mesh.current.rotation.y = state.clock.getElapsedTime() * 0.3;
   });
 
   return (
@@ -22,7 +20,6 @@ function CodeModel(props) {
         <boxGeometry args={[2, 2, 2]} />
         <meshStandardMaterial color="#cd0018" metalness={0.8} roughness={0.2} />
         
-        {/* Front face (+Z) */}
         <mesh position={[0, 0, 1.01]}>
           <planeGeometry args={[1.8, 1.8]} />
           <meshStandardMaterial
@@ -48,7 +45,6 @@ function CodeModel(props) {
           </Text>
         </mesh>
 
-        {/* Back face (-Z) */}
         <mesh position={[0, 0, -1.01]} rotation={[0, Math.PI, 0]}>
           <planeGeometry args={[1.8, 1.8]} />
           <meshStandardMaterial
@@ -74,7 +70,6 @@ function CodeModel(props) {
           </Text>
         </mesh>
 
-        {/* Right face (+X) */}
         <mesh position={[1.01, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
           <planeGeometry args={[1.8, 1.8]} />
           <meshStandardMaterial
@@ -85,7 +80,6 @@ function CodeModel(props) {
             emissive="#ffffff"
             emissiveIntensity={0.2}
           />
-          {/* Adjusted text position and rotation for better visibility */}
           <group rotation={[0, Math.PI, 0]}>
             <Text
               position={[0, 0, 0.05]}
@@ -103,7 +97,6 @@ function CodeModel(props) {
           </group>
         </mesh>
 
-        {/* Left face (-X) */}
         <mesh position={[-1.01, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
           <planeGeometry args={[1.8, 1.8]} />
           <meshStandardMaterial
@@ -114,7 +107,6 @@ function CodeModel(props) {
             emissive="#ffffff"
             emissiveIntensity={0.2}
           />
-          {/* Adjusted text position and rotation for better visibility */}
           <group rotation={[0, Math.PI, 0]}>
             <Text
               position={[0, 0, 0.05]}
@@ -132,7 +124,6 @@ function CodeModel(props) {
           </group>
         </mesh>
 
-        {/* Top face (+Y) */}
         <mesh position={[0, 1.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[1.8, 1.8]} />
           <meshStandardMaterial
@@ -158,7 +149,6 @@ function CodeModel(props) {
           </Text>
         </mesh>
 
-        {/* Bottom face (-Y) */}
         <mesh position={[0, -1.01, 0]} rotation={[Math.PI / 2, 0, 0]}>
           <planeGeometry args={[1.8, 1.8]} />
           <meshStandardMaterial
@@ -188,7 +178,6 @@ function CodeModel(props) {
   );
 }
 
-// Animated particles
 function Particles({ count = 100 }) {
   const mesh = useRef();
   const positions = useRef(new Float32Array(count * 3));
@@ -197,23 +186,17 @@ function Particles({ count = 100 }) {
   const speeds = useRef(new Float32Array(count));
   
   useEffect(() => {
-    // Create particles in circular/spherical orbits
     for (let i = 0; i < count; i++) {
-      // Random radius between 3 and 6
       radii.current[i] = 3 + Math.random() * 3;
       
-      // Random initial angle
       initialAngles.current[i] = Math.random() * Math.PI * 2;
       
-      // Random rotation speed
       speeds.current[i] = 0.001 + Math.random() * 0.002;
       
-      // Calculate initial position on a circle/sphere
       const idx = i * 3;
       const radius = radii.current[i];
       const angle = initialAngles.current[i];
       
-      // Distribute particles on different orbital planes
       const planeAngle = Math.random() * Math.PI;
       
       positions.current[idx] = radius * Math.cos(angle);
@@ -222,12 +205,10 @@ function Particles({ count = 100 }) {
     }
   }, [count]);
   
-  // Optimize animation by using a counter to update less frequently
   const frameCounter = useRef(0);
   const time = useRef(0);
   
   useFrame((state) => {
-    // Only update every 2 frames for better performance
     frameCounter.current += 1;
     if (frameCounter.current % 2 !== 0) return;
     
@@ -235,15 +216,14 @@ function Particles({ count = 100 }) {
     
     const positions = mesh.current.geometry.attributes.position.array;
     
-    // Update particle positions to move in circular orbits
     for (let i = 0; i < count; i++) {
       const idx = i * 3;
       const radius = radii.current[i];
       const angle = initialAngles.current[i] + time.current * speeds.current[i];
-      const planeAngle = (i % 5) * Math.PI / 5; // Different orbital planes
+      const planeAngle = (i % 5) * Math.PI / 5;
       
       positions[idx] = radius * Math.cos(angle);
-      positions[idx + 1] = radius * Math.sin(planeAngle) * 0.5; // Flatten vertically
+      positions[idx + 1] = radius * Math.sin(planeAngle) * 0.5;
       positions[idx + 2] = radius * Math.sin(angle);
     }
     
@@ -261,23 +241,22 @@ function Particles({ count = 100 }) {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.08} // Larger size to compensate for fewer particles
+        size={0.08}
         color="#cd0018"
         sizeAttenuation
         transparent
-        opacity={0.6} // Lower opacity for better performance
+        opacity={0.6}
       />
     </points>
   );
 }
 
-// Main scene component
 const Scene3D = () => {
   const [contextLost, setContextLost] = useState(false);
   
   useEffect(() => {
     const handleContextLost = (event) => {
-      event.preventDefault(); // This allows the context to be restored
+      event.preventDefault();
       setContextLost(true);
       console.warn('WebGL context lost. Attempting to restore...');
     };
@@ -320,18 +299,17 @@ const Scene3D = () => {
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
         style={{ background: 'transparent' }}
-        dpr={[0.8, 1.2]} // Even lower DPR for better performance
+        dpr={[0.8, 1.2]}
         gl={{
-          antialias: false, // Disable antialiasing for better performance
+          antialias: false,
           alpha: true,
-          powerPreference: 'low-power', // Prefer low power mode
-          failIfMajorPerformanceCaveat: false, // Don't fail on low-end devices
-          preserveDrawingBuffer: false // Better performance
+          powerPreference: 'low-power',
+          failIfMajorPerformanceCaveat: false,
+          preserveDrawingBuffer: false
         }}
-        frameloop="demand" // Only render when needed
-        performance={{ min: 0.3 }} // Lower performance threshold
+        frameloop="demand"
+        performance={{ min: 0.3 }}
         onCreated={({ gl }) => {
-          // Add error handling for WebGL context
           if (gl && gl.canvas) {
             gl.canvas.addEventListener('webglcontextlost', (event) => {
               event.preventDefault();
@@ -344,27 +322,24 @@ const Scene3D = () => {
               console.log('WebGL context restored in Canvas component');
             });
             
-            // Set renderer parameters for better stability
-            gl.setClearColor(0x000000, 0); // Transparent background
-            gl.setPixelRatio(Math.min(window.devicePixelRatio, 1.2)); // Limit pixel ratio
+            gl.setClearColor(0x000000, 0);
+            gl.setPixelRatio(Math.min(window.devicePixelRatio, 1.2));
           }
         }}
       >
-        {/* Simplified lighting for better performance */}
         <ambientLight intensity={1.0} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} />
         
         <CodeModel position={[0, 0, 0]} />
-        {/* Reduce particle count for better performance */}
         <Particles count={100} />
         
         <OrbitControls
           enableZoom={false}
           enablePan={false}
           autoRotate
-          autoRotateSpeed={1.0} // Faster auto-rotation
-          minPolarAngle={Math.PI / 3} // Limit rotation to prevent seeing from below
-          maxPolarAngle={Math.PI / 1.5} // Limit rotation to prevent seeing from above
+          autoRotateSpeed={1.0}
+          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI / 1.5}
         />
         <Environment preset="city" />
       </Canvas>

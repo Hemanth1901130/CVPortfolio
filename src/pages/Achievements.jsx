@@ -3,21 +3,16 @@ import { motion } from 'framer-motion';
 import OptimizedImage from '../components/OptimizedImage';
 import SkeletonLoader from '../components/SkeletonLoader';
 
-// Import certificate images
 import javaCert from '../assets/images/certificates/java-cert.png';
 import caseCert from '../assets/images/certificates/case-cert.png';
 import systemCert from '../assets/images/certificates/system-cert.png';
+import JavaProgrammingCertificate from '../assets/images/CoreJavaCertificate.pdf';
+import CaseCertificate from '../assets/images/CrackTheCase.pdf';
+import AndroidCertificate from '../assets/images/21ESYSN1024.pdf';
 
-/**
- * Achievements page component
- * Displays certifications and achievements
- * 
- * @returns {JSX.Element} The Achievements page component
- */
 const Achievements = () => {
   const [loading, setLoading] = useState(true);
 
-  // Simulate loading state
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -26,7 +21,19 @@ const Achievements = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Certificate data
+  const handleViewCertificate = (cert) => {
+    // Check if the certificate has a PDF file
+    if (cert.pdfFile) {
+      // Create a link element
+      const link = document.createElement('a');
+      link.href = cert.pdfFile;
+      link.download = `${cert.title.replace(/\s+/g, '-')}-Certificate.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   const certificates = [
     {
       id: 1,
@@ -35,7 +42,8 @@ const Achievements = () => {
       date: 'June 2023',
       description: 'Advanced Java programming certification covering core concepts, data structures, and application development.',
       image: javaCert,
-      alt: 'Java Programming Certificate'
+      alt: 'Java Programming Certificate',
+      pdfFile: JavaProgrammingCertificate
     },
     {
       id: 2,
@@ -44,7 +52,8 @@ const Achievements = () => {
       date: 'August 2023',
       description: 'Certified Associate in Software Engineering (CASE) demonstrating proficiency in software development methodologies.',
       image: caseCert,
-      alt: 'CASE Certificate'
+      alt: 'CASE Certificate',
+      pdfFile: CaseCertificate
     },
     {
       id: 3,
@@ -53,11 +62,11 @@ const Achievements = () => {
       date: 'October 2023',
       description: 'Certification in designing and implementing scalable system architectures for enterprise applications.',
       image: systemCert,
-      alt: 'Systems Architecture Certificate'
+      alt: 'Systems Architecture Certificate',
+      pdfFile: AndroidCertificate
     }
   ];
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -138,6 +147,7 @@ const Achievements = () => {
                   <button
                     className="w-full flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary text-secondary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                     aria-label={`View ${cert.title} certificate`}
+                    onClick={() => handleViewCertificate(cert)}
                   >
                     View Certificate
                   </button>

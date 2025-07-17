@@ -24,9 +24,7 @@ const CustomCursor = () => {
     const handleLinkHover = () => setCursorVariant('link');
     const handleLinkLeave = () => setCursorVariant('default');
 
-    // Add a small delay to ensure DOM is fully loaded
     const timer = setTimeout(() => {
-      // Add event listeners to all links and buttons
       const links = document.querySelectorAll('a, button, .btn, [role="button"], input, select, textarea');
       links.forEach(link => {
         link.addEventListener('mouseenter', handleLinkHover);
@@ -36,7 +34,6 @@ const CustomCursor = () => {
 
     return () => {
       clearTimeout(timer);
-      // Try to remove listeners if possible
       try {
         const links = document.querySelectorAll('a, button, .btn, [role="button"], input, select, textarea');
         links.forEach(link => {
@@ -57,7 +54,7 @@ const CustomCursor = () => {
       border: '2px solid rgba(59, 130, 246, 1.0)',
       boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)',
       transition: {
-        type: 'tween', // Use tween for more reliable movement
+        type: 'tween',
         duration: 0.05
       }
     },
@@ -76,7 +73,6 @@ const CustomCursor = () => {
     }
   };
 
-  // Only show custom cursor on non-touch devices
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
@@ -118,7 +114,6 @@ const CustomCursor = () => {
           cursor: none !important;
         }
         
-        /* Fallback cursor style */
         .no-custom-cursor {
           cursor: default !important;
         }

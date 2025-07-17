@@ -11,18 +11,15 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
   const errorRetryCount = useRef(0);
 
   useEffect(() => {
-    // Check if user prefers reduced motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
 
-    // Add listener for changes to motion preference
     const handleMotionPreferenceChange = (e) => {
       setPrefersReducedMotion(e.matches);
     };
     
     mediaQuery.addEventListener('change', handleMotionPreferenceChange);
     
-    // Add global event listeners for WebGL context loss/restore
     const handleContextLost = (e) => {
       e.preventDefault();
       console.warn('WebGL context lost in ParticleBackground');
@@ -32,7 +29,6 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
     const handleContextRestored = () => {
       console.log('WebGL context restored in ParticleBackground');
       setContextLost(false);
-      // Attempt to reinitialize particles
       if (particlesRef.current) {
         try {
           particlesRef.current.refresh();
@@ -52,7 +48,6 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
     };
   }, []);
 
-  // Auto-recovery mechanism
   useEffect(() => {
     if (contextLost && errorRetryCount.current < 3) {
       const timer = setTimeout(() => {
@@ -68,9 +63,7 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
   const particlesInit = useCallback(async (engine) => {
     try {
       await loadFull(engine);
-      // Store reference to the engine
       particlesRef.current = engine;
-      // Reset error state and retry count on successful init
       setHasError(false);
       errorRetryCount.current = 0;
     } catch (err) {
@@ -81,16 +74,13 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
 
   const particlesLoaded = useCallback(async (container) => {
     console.log('Particles loaded successfully');
-    // Store reference to the container
     particlesRef.current = container;
   }, []);
 
-  // If user prefers reduced motion or there's an error, don't render particles
   if (prefersReducedMotion || hasError) {
     return null;
   }
   
-  // If context is lost, show a simplified fallback or nothing
   if (contextLost && errorRetryCount.current >= 3) {
     return null;
   }
@@ -102,32 +92,32 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
       loaded={particlesLoaded}
       aria-hidden="true"
       options={{
-        autoPlay: true, // Keep animation running
+        autoPlay: true,
         background: {
           color: {
             value: 'transparent',
           },
         },
-        fpsLimit: 30, // Lower FPS limit for better performance
+        fpsLimit: 30,
         fullScreen: {
-          enable: false, // Don't use fullscreen mode to avoid performance issues
+          enable: false,
         },
         interactivity: {
           events: {
             onClick: {
-              enable: false, // Disable click interactions for better performance
+              enable: false,
             },
             onHover: {
               enable: true,
               mode: 'repulse',
               parallax: {
-                enable: false, // Disable parallax effect for better performance
+                enable: false,
               }
             },
             resize: {
               enable: true,
-              delay: 500, // Add delay to resize handling for better performance
-              minimumSize: 100, // Don't render particles below this size
+              delay: 500,
+              minimumSize: 100,
             },
           },
           modes: {
@@ -139,59 +129,59 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
         },
         particles: {
           color: {
-            value: '#ffffff', // White particles for better contrast on blue background
+            value: '#ffffff',
           },
           links: {
             color: '#ffffff',
             distance: 150,
             enable: true,
-            opacity: 0.3, // Lower opacity for better performance
+            opacity: 0.3,
             width: 1,
             triangles: {
-              enable: false, // Disable triangles for better performance
+              enable: false,
             }
           },
           collisions: {
-            enable: false, // Disable collisions for better performance
+            enable: false,
           },
           move: {
             direction: 'none',
             enable: true,
             outModes: {
-              default: 'out', // Use 'out' instead of 'bounce' for better performance
+              default: 'out',
             },
             random: false,
-            speed: 1, // Lower speed for better performance
+            speed: 1,
             straight: false,
             trail: {
-              enable: false, // Disable trail for better performance
+              enable: false,
             }
           },
           number: {
             density: {
               enable: true,
-              area: 1000, // Increase area to reduce particle density
+              area: 1000,
             },
-            value: 40, // Reduce number of particles for better performance
-            limit: 50, // Set a hard limit on particles
+            value: 40,
+            limit: 50,
           },
           opacity: {
-            value: 0.4, // Lower opacity for better performance
+            value: 0.4,
           },
           shape: {
-            type: 'circle', // Stick with simple circles for better performance
+            type: 'circle',
           },
           size: {
-            value: { min: 1, max: 3 }, // Smaller particles for better performance
+            value: { min: 1, max: 3 },
           },
           twinkle: {
-            enable: false, // Disable twinkling for better performance
+            enable: false,
           }
         },
-        detectRetina: false, // Disable retina detection for better performance
-        pauseOnBlur: true, // Pause when tab is not focused
-        pauseOnOutsideViewport: true, // Pause when not visible
-        smooth: false, // Disable smooth animations for better performance
+        detectRetina: false,
+        pauseOnBlur: true,
+        pauseOnOutsideViewport: true,
+        smooth: false,
       }}
       className="absolute inset-0 -z-10"
     />

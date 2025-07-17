@@ -37,8 +37,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed w-full z-20 transition-all duration-300 ${scrolled ? 'bg-white/90 dark:bg-dark/90 backdrop-blur-md shadow-md' : 'bg-transparent'}`} aria-label="Main navigation">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className={`fixed w-full z-20 transition-all duration-300 ${scrolled ? 'bg-white/30 dark:bg-dark/50 backdrop-blur-sm border-b border-gray-200/20 dark:border-gray-800/20' : 'bg-transparent'}`} aria-label="Main navigation">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-16">
           <m.div
             className="flex-shrink-0 flex items-center gap-3"
@@ -53,15 +53,15 @@ const Navbar = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <Link to="/" className="text-xl sm:text-2xl font-bold text-primary">
+            <Link to="/" className="text-xl sm:text-2xl font-bold text-secondary">
               <span className="text-dark dark:text-light">Pamarthi</span>
               <span className="hidden xs:inline">Hemanth Srinivas</span>
             </Link>
           </m.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
+          <div className="hidden md:block pr-3 sm:pr-4 lg:pr-6">
+            <div className="ml-6 sm:ml-8 flex items-center space-x-4">
               {navLinks.map((link, index) => (
                 <m.div
                   key={link.name}

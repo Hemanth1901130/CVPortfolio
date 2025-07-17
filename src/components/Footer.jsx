@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    { icon: <FiGithub size={20} />, url: 'https://github.com/hemanthpamarthi', label: 'GitHub' },
+    { icon: <FiGithub size={20} />, url: 'https://github.com/Hemanth1901130', label: 'GitHub' },
     { icon: <FiLinkedin size={20} />, url: 'https://www.linkedin.com/in/hemanth-srinivas-pamarthi-417b5621a', label: 'LinkedIn' },
     { icon: <FiMail size={20} />, url: 'mailto:pamarthy.hemanth@gmail.com', label: 'Email' },
   ];

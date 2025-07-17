@@ -7,6 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 const ThemeSwitch = () => {
   const { currentTheme, isDarkMode, themes, toggleDarkMode, changeTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [isTextReversed, setIsTextReversed] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const closeDropdown = () => setIsOpen(false);
@@ -16,21 +17,26 @@ const ThemeSwitch = () => {
     closeDropdown();
   };
 
+  const handleToggleDarkMode = () => {
+    toggleDarkMode();
+    setIsTextReversed(!isTextReversed);
+  };
+
   return (
-    <div className="relative">
+    <div className="relative flex items-center">
       <motion.button
-        onClick={toggleDarkMode}
-        className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-dark dark:text-light mr-2"
+        onClick={handleToggleDarkMode}
+        className={`p-2 rounded-full bg-gray-100 dark:bg-gray-800 ${isTextReversed ? 'text-dark dark:text-dark' : 'text-dark dark:text-light'} mr-2`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
         {isDarkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
       </motion.button>
 
-      <div className="inline-block">
+      <div className="relative">
         <motion.button
           onClick={toggleDropdown}
-          className="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-800 text-dark dark:text-light"
+          className={`flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-800 ${isTextReversed ? 'text-dark dark:text-dark' : 'text-dark dark:text-light'}`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -53,13 +59,14 @@ const ThemeSwitch = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
+              style={{ minWidth: '150px' }}
             >
               <div className="py-1">
                 {Object.keys(themes).map((themeName) => (
                   <button
                     key={themeName}
                     onClick={() => handleThemeChange(themeName)}
-                    className="flex items-center justify-between w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className={`flex items-center justify-between w-full px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700`}
                   >
                     <div className="flex items-center gap-2">
                       <span 
