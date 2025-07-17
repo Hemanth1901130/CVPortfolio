@@ -20,7 +20,7 @@ function CodeModel(props) {
     >
       <mesh ref={mesh} {...props}>
         <boxGeometry args={[2, 2, 2]} />
-        <meshStandardMaterial color="#cd0018ff" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#cd0018" metalness={0.8} roughness={0.2} />
         
         {/* Front face (+Z) */}
         <mesh position={[0, 0, 1.01]}>
@@ -228,7 +228,7 @@ function Particles({ count = 100 }) {
       </bufferGeometry>
       <pointsMaterial
         size={0.08} // Larger size to compensate for fewer particles
-        color="#cd0018ff"
+        color="#cd0018"
         sizeAttenuation
         transparent
         opacity={0.6} // Lower opacity for better performance
