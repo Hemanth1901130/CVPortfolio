@@ -192,27 +192,61 @@ function CodeModel(props) {
 function Particles({ count = 100 }) {
   const mesh = useRef();
   const positions = useRef(new Float32Array(count * 3));
+  const initialAngles = useRef(new Float32Array(count));
+  const radii = useRef(new Float32Array(count));
+  const speeds = useRef(new Float32Array(count));
   
   useEffect(() => {
-    for (let i = 0; i < count * 3; i += 3) {
-      positions.current[i] = (Math.random() - 0.5) * 10;
-      positions.current[i + 1] = (Math.random() - 0.5) * 10;
-      positions.current[i + 2] = (Math.random() - 0.5) * 10;
+    // Create particles in circular/spherical orbits
+    for (let i = 0; i < count; i++) {
+      // Random radius between 3 and 6
+      radii.current[i] = 3 + Math.random() * 3;
+      
+      // Random initial angle
+      initialAngles.current[i] = Math.random() * Math.PI * 2;
+      
+      // Random rotation speed
+      speeds.current[i] = 0.001 + Math.random() * 0.002;
+      
+      // Calculate initial position on a circle/sphere
+      const idx = i * 3;
+      const radius = radii.current[i];
+      const angle = initialAngles.current[i];
+      
+      // Distribute particles on different orbital planes
+      const planeAngle = Math.random() * Math.PI;
+      
+      positions.current[idx] = radius * Math.cos(angle);
+      positions.current[idx + 1] = radius * Math.sin(planeAngle);
+      positions.current[idx + 2] = radius * Math.sin(angle);
     }
   }, [count]);
   
   // Optimize animation by using a counter to update less frequently
   const frameCounter = useRef(0);
+  const time = useRef(0);
   
-  useFrame(() => {
+  useFrame((state) => {
     // Only update every 2 frames for better performance
     frameCounter.current += 1;
     if (frameCounter.current % 2 !== 0) return;
     
+    time.current += 0.01;
+    
     const positions = mesh.current.geometry.attributes.position.array;
-    for (let i = 0; i < positions.length; i += 9) { // Update fewer particles
-      positions[i + 1] += 0.01 * Math.sin(positions[i] + positions[i + 2]);
+    
+    // Update particle positions to move in circular orbits
+    for (let i = 0; i < count; i++) {
+      const idx = i * 3;
+      const radius = radii.current[i];
+      const angle = initialAngles.current[i] + time.current * speeds.current[i];
+      const planeAngle = (i % 5) * Math.PI / 5; // Different orbital planes
+      
+      positions[idx] = radius * Math.cos(angle);
+      positions[idx + 1] = radius * Math.sin(planeAngle) * 0.5; // Flatten vertically
+      positions[idx + 2] = radius * Math.sin(angle);
     }
+    
     mesh.current.geometry.attributes.position.needsUpdate = true;
   });
   
