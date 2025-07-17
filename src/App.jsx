@@ -2,11 +2,11 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { useEffect, useRef, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
+import { ThreeDProvider } from './context/ThreeDContext';
 import Layout from './components/Layout';
 import CustomCursor from './components/CustomCursor';
 import PageTransition from './components/PageTransition';
 import LoadingFallback from './components/LoadingFallback';
-import Analytics from './components/Analytics';
 
 // Lazy load page components
 const Home = lazy(() => import('./pages/Home'));
@@ -17,7 +17,6 @@ const Education = lazy(() => import('./pages/Education'));
 const Achievements = lazy(() => import('./pages/Achievements'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Contact = lazy(() => import('./pages/Contact'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Component for the skip to content link
@@ -40,12 +39,13 @@ function App() {
 
   return (
     <ThemeProvider>
-      <CustomCursor />
-      <Router>
-        <SkipToContent />
-        <Analytics />
-        <AppRoutes />
-      </Router>
+      <ThreeDProvider>
+        <CustomCursor />
+        <Router>
+          <SkipToContent />
+          <AppRoutes />
+        </Router>
+      </ThreeDProvider>
     </ThemeProvider>
   );
 }
@@ -66,7 +66,6 @@ function AppRoutes() {
       '/achievements': 'Achievements | Pamarthi Hemanth Srinivas',
       '/projects': 'Projects | Pamarthi Hemanth Srinivas',
       '/contact': 'Contact | Pamarthi Hemanth Srinivas',
-      '/dashboard': 'Analytics Dashboard | Pamarthi Hemanth Srinivas',
     };
     
     document.title = pageTitles[location.pathname] || 'Page Not Found | Pamarthi Hemanth Srinivas';
@@ -172,17 +171,6 @@ function AppRoutes() {
               <Suspense fallback={<LoadingFallback />}>
                 <PageTransition>
                   <Contact />
-                </PageTransition>
-              </Suspense>
-            </main>
-          </Layout>
-        } />
-        <Route path="/dashboard" element={
-          <Layout>
-            <main id="main-content" ref={mainContentRef} tabIndex="-1">
-              <Suspense fallback={<LoadingFallback />}>
-                <PageTransition>
-                  <Dashboard />
                 </PageTransition>
               </Suspense>
             </main>

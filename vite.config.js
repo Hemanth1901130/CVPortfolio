@@ -38,6 +38,10 @@ export default defineConfig({
         ]
       },
       workbox: {
+        // Disable Google Analytics integration
+        googleAnalytics: {
+          enabled: false
+        },
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

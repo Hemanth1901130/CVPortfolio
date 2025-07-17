@@ -4,7 +4,7 @@ const ThemeContext = createContext();
 
 const themes = {
   blue: {
-    primary: '#00415fff',
+    primary: '#0800ffff',
     secondary: '#6366f1',
     dark: '#0f172a',
     light: '#f8fafc'
