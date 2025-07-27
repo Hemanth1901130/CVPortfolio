@@ -31,9 +31,7 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">About Me</h2>
             <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
             <p className="max-w-3xl mx-auto text-gray-200 text-lg">
-              I'm a passionate Frontend Developer with experience in building responsive and user-centric web
-              applications. Skilled in React.js, Java, HTML/CSS, MySQL, and UI/UX tools. I love creating clean,
-              intuitive digital experiences and solving practical problems through code.
+              I'm a Frontend Developer with a passion for crafting clean, efficient, and accessible interfaces using ReactJS. Currently working  and always open to new opportunities and challenges.
             </p>
           </motion.div>
         </div>
