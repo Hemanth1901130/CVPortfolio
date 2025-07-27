@@ -53,7 +53,7 @@ const Navbar = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <Link to="/" className="text-xl sm:text-2xl font-bold text-primary dark:text-light">
+            <Link to="/" className="text-xl sm:text-2xl font-bold text-secondary">
               <span className="text-dark dark:text-light">Pamarthi</span>
               <span className="hidden xs:inline">Hemanth Srinivas</span>
             </Link>
