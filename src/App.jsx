@@ -14,7 +14,7 @@ const About = lazy(() => import('./pages/About'));
 const Skills = lazy(() => import('./pages/Skills'));
 const Experience = lazy(() => import('./pages/Experience'));
 const Education = lazy(() => import('./pages/Education'));
-const Certificates & Achievements = lazy(() => import('./pages/Achievements'));
+const Achievements = lazy(() => import('./pages/Achievements'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -63,7 +63,7 @@ function AppRoutes() {
       '/skills': 'Skills | Pamarthi Hemanth Srinivas',
       '/experience': 'Experience | Pamarthi Hemanth Srinivas',
       '/education': 'Education | Pamarthi Hemanth Srinivas',
-      '/achievements': 'Achievements | Pamarthi Hemanth Srinivas',
+      '/achievements': 'Achievements & Certificates | Pamarthi Hemanth Srinivas',
       '/projects': 'Projects | Pamarthi Hemanth Srinivas',
       '/contact': 'Contact | Pamarthi Hemanth Srinivas',
     };
