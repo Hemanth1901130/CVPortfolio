@@ -3,12 +3,6 @@ import { createContext, useState, useEffect, useContext } from 'react';
 const ThemeContext = createContext();
 
 const themes = {
-  blue: {
-    primary: '#0800ffff',
-    secondary: '#6366f1',
-    dark: '#0f172a',
-    light: '#f8fafc'
-  },
   green: {
     primary: '#10b981',
     secondary: '#059669',
@@ -36,16 +30,16 @@ const themes = {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState('blue');
+  const [currentTheme, setCurrentTheme] = useState('green');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme-color') || 'blue';
+    const savedTheme = localStorage.getItem('theme-color') || 'green';
     const savedMode = localStorage.getItem('theme-mode') === 'dark';
     
     // Make sure the theme exists in our themes object
-    const themeToUse = themes[savedTheme] ? savedTheme : 'blue';
-    
+    const themeToUse = themes[savedTheme] ? savedTheme : 'green';
+
     setCurrentTheme(themeToUse);
     setIsDarkMode(savedMode);
     
@@ -59,8 +53,8 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   const applyThemeColors = (themeName) => {
-    // Default to blue theme if the requested theme doesn't exist
-    const theme = themes[themeName] || themes.blue;
+    // Default to green theme if the requested theme doesn't exist
+    const theme = themes[themeName] || themes.green;
     
     document.documentElement.style.setProperty('--color-primary', theme.primary);
     document.documentElement.style.setProperty('--color-secondary', theme.secondary);
