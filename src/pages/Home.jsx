@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { FiArrowRight, FiDownload } from 'react-icons/fi';
-import HeroScene from '../components/HeroScene';
-import ParticleBackground from '../components/ParticleBackground';
-import ErrorBoundary from '../components/ErrorBoundary';
-import cvPdf from '../assets/images/Pamarthi_HemanthSrinivas_CV.pdf';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { FiArrowRight, FiDownload } from "react-icons/fi";
+import HeroScene from "../components/HeroScene";
+import ParticleBackground from "../components/ParticleBackground";
+import ErrorBoundary from "../components/ErrorBoundary";
+import cvPdf from "../assets/images/Pamarthi_HemanthSrinivas_CV.pdf";
 
 const Home = () => {
   return (
@@ -32,27 +32,37 @@ const Home = () => {
               >
                 SDE
               </motion.span>
-              
+
               <motion.h1
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark dark:text-light mb-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
-                Pamarthi <span className="text-primary">Hemanth</span> <span className="text-primary">Srinivas</span>
+                Pamarthi <span className="text-primary">Hemanth</span>{" "}
+                <span className="text-primary">Srinivas</span>
               </motion.h1>
-              
+
               <motion.p
                 className="text-gray-600 dark:text-white text-lg mb-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
               >
-                I'm a passionate Frontend Developer and certified Core Java Professional specializing in building
-                responsive and user-friendly web applications using React.js, HTML, CSS, and other modern
-                technologies. I focus on creating clean, intuitive digital experiences.
+                I'm a frontend developer with a strong focus on building
+                responsive, user-friendly web applications using React.js, HTML,
+                and CSS. Alongside my development skills, I'm a certified Core
+                Java professional with a solid understanding of programming
+                fundamentals. I take pride in writing clean, maintainable code
+                and crafting intuitive digital experiences that work well across
+                devices.
+                <br />
+                <br />
+                I'm always looking to grow as a developer, stay current with
+                evolving web technologies, and contribute to meaningful,
+                user-focused projects.
               </motion.p>
-              
+
               <motion.div
                 className="flex flex-col sm:flex-row gap-4"
                 initial={{ opacity: 0, y: 20 }}
@@ -76,7 +86,7 @@ const Home = () => {
                 </a>
               </motion.div>
             </motion.div>
-            
+
             {/* 3D Scene with Fallback */}
             <motion.div
               className="relative h-[400px] md:h-[500px] w-full overflow-visible"
@@ -85,14 +95,20 @@ const Home = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               style={{ zIndex: 10 }}
             >
-              <ErrorBoundary fallback={
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-indigo-500 to-blue-500 bg-opacity-20 rounded-xl">
-                  <div className="text-center p-6">
-                    <h3 className="text-xl font-bold text-dark dark:text-light mb-2">Interactive 3D</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Showcasing my technical skills</p>
+              <ErrorBoundary
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-indigo-500 to-blue-500 bg-opacity-20 rounded-xl">
+                    <div className="text-center p-6">
+                      <h3 className="text-xl font-bold text-dark dark:text-light mb-2">
+                        Interactive 3D
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        Showcasing my technical skills
+                      </p>
+                    </div>
                   </div>
-                </div>
-              }>
+                }
+              >
                 <HeroScene />
               </ErrorBoundary>
             </motion.div>
@@ -112,11 +128,23 @@ const Home = () => {
           >
             <h2 className="text-3xl font-bold text-white mb-6">My Expertise</h2>
             <p className="text-gray-200 mb-8">
-              With a strong foundation in frontend development and a passion for creating exceptional user experiences,
-              I bring creativity and technical expertise to every project.
+              With a strong foundation in frontend development and a passion for
+              creating exceptional user experiences, I bring creativity and
+              technical expertise to every project.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6" role="list" aria-label="My skills">
-              {['React.js', 'JavaScript', 'HTML/CSS', 'Tailwind CSS', 'Responsive Design', 'UI/UX'].map((skill, index) => (
+            <div
+              className="grid grid-cols-2 md:grid-cols-3 gap-6"
+              role="list"
+              aria-label="My skills"
+            >
+              {[
+                "React.js",
+                "JavaScript",
+                "HTML/CSS",
+                "Tailwind CSS",
+                "Responsive Design",
+                "UI/UX",
+              ].map((skill, index) => (
                 <motion.div
                   key={skill}
                   className="bg-white/10 p-4 rounded-lg"
@@ -145,10 +173,14 @@ const Home = () => {
             viewport={{ once: true }}
             className="bg-black/25 p-8 rounded-xl shadow-lg backdrop-blur-sm text-white"
           >
-            <h2 className="text-3xl font-bold text-white mb-4">Let's Work Together</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Let's Work Together
+            </h2>
             <p className="text-gray-200 mb-8">
-              I'm currently available for freelance projects, full-time positions, and collaborations.
-              If you're looking for a developer who is passionate about creating exceptional web experiences, let's connect!
+              I'm currently available for freelance projects, full-time
+              positions, and collaborations. If you're looking for a developer
+              who is passionate about creating exceptional web experiences,
+              let's connect!
             </p>
             <Link
               to="/contact"
