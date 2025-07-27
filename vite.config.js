@@ -12,8 +12,8 @@ export default defineConfig({
       manifest: {
         name: 'Pamarthi Hemanth Srinivas Portfolio',
         short_name: 'Hemanth Portfolio',
-        description: 'Professional Frontend Developer Portfolio',
-        theme_color: '#0ea5e9',
+        description: 'Portfolio',
+        theme_color: '#e9450e',
         background_color: '#f8fafc',
         display: 'standalone',
         scope: '/',
