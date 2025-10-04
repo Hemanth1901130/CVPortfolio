@@ -109,9 +109,7 @@ export default defineConfig({
             if (id.includes('framer-motion')) {
               return 'framer-motion-vendor';
             }
-            if (id.includes('react')) {
-              return 'react-vendor';
-            }
+            // Keep React in main bundle to avoid loading issues
             if (id.includes('tsparticles') || id.includes('react-tsparticles')) {
               return 'particles-vendor';
             }
