@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect, useRef } from 'react';
 import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
+import { loadSlim } from 'tsparticles-slim';
 import PropTypes from 'prop-types';
 
 const ParticleBackground = ({ id = 'tsparticles' }) => {
@@ -67,7 +67,7 @@ const ParticleBackground = ({ id = 'tsparticles' }) => {
 
   const particlesInit = useCallback(async (engine) => {
     try {
-      await loadFull(engine);
+      await loadSlim(engine);
       // Store reference to the engine
       particlesRef.current = engine;
       // Reset error state and retry count on successful init
