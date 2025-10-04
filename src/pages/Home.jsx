@@ -19,6 +19,7 @@ import {
   ParallaxScroll,
   MorphingBackground,
 } from "../components/AdvancedAnimations";
+import { MorphingText } from "../components/ui/morphing-text";
 import { ShinyButton } from "../components/ui/shiny-button";
 import cvPdf from "../assets/images/Pamarthi_HemanthSrinivas_CV.pdf";
 
@@ -54,17 +55,15 @@ const Home = () => {
 
                 <div>
                   <motion.h1
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 leading-tight"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="text-5xl md:text-5xl lg:text-6xl font-bold text-white mb-2 leading-tight"
+                    // initial={{ opacity: 0, y: 30 }}
+                    // animate={{ opacity: 1, y: 0 }}
+                    // transition={{ duration: 0.8, delay: 0.3 }}
                   >
-                    Hi, I'm{" "}
-                    <GradientText gradient="primary" className="block">
-                      <TypewriterEffect
-                        text="Hemanth Srinivas"
-                        speed={400}
-                        delay={500}
+                    <GradientText gradient="primary" className="block text-stroke-light">
+                      <MorphingText
+                        texts={["Hi there,", "I'm", "Hemanth"]}
+                        className="text-3xl md:text-4xl lg:text-5xl h-12 md:h-16"
                       />
                     </GradientText>
                   </motion.h1>
@@ -190,7 +189,7 @@ const Home = () => {
           <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <RevealAnimation animation="fadeUp" className="text-center mb-16">
               <GradientText
-                gradient="primary"
+                gradient="white"
                 className="text-4xl md:text-5xl font-bold mb-4"
               >
                 My Expertise

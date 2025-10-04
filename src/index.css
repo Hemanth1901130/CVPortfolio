@@ -209,6 +209,14 @@ body {
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
+.text-stroke-light {
+  text-shadow:
+    -1px -1px 0 rgba(0, 0, 0, 0.3),
+    1px -1px 0 rgba(0, 0, 0, 0.3),
+    -1px 1px 0 rgba(0, 0, 0, 0.3),
+    1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
 .interactive-card {
   @apply glass-card hover-lift cursor-pointer;
   transition: all var(--duration-300) var(--ease-out);
