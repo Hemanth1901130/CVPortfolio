@@ -5,8 +5,15 @@ import { FiMail, FiMapPin, FiPhone, FiSend } from 'react-icons/fi';
 import emailjs from '@emailjs/browser';
 import SkeletonLoader from '../components/SkeletonLoader';
 import ParticleBackground from '../components/ParticleBackground';
+import { MagicCard } from "../components/ui/magic-card";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { useTheme } from '../context/ThemeContext';
 
 const Contact = () => {
+  const { isDarkMode } = useTheme();
   const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
@@ -14,7 +21,7 @@ const Contact = () => {
     subject: '',
     message: '',
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -141,124 +148,124 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-black/25 rounded-xl shadow-lg p-8 backdrop-blur-sm text-white"
           >
-            <h3 className="text-2xl font-bold text-white mb-6">Send Me a Message</h3>
-            
-            <form ref={form} onSubmit={handleSubmit} aria-label="Contact form">
-              <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white/10 text-white placeholder-gray-300"
-                  placeholder="John Doe"
-                />
-              </div>
-              
-              <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white/10 text-white placeholder-gray-300"
-                  placeholder="john@example.com"
-                />
-              </div>
-              
-              <div className="mb-4">
-                <label htmlFor="subject" className="block text-sm font-medium text-white mb-1">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white/10 text-white placeholder-gray-300"
-                  placeholder="Project Inquiry"
-                />
-              </div>
-              
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-medium text-white mb-1">
-                  Your Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="5"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white/10 text-white placeholder-gray-300 resize-none"
-                  placeholder="Hello, I'd like to discuss a project..."
-                ></textarea>
-              </div>
-              
-              <motion.button
-                type="submit"
-                className="w-full btn btn-primary flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                aria-label={isSubmitting ? "Sending message..." : "Send message"}
+            <Card className="w-full max-w-2xl border-none p-0 shadow-none">
+              <MagicCard
+                gradientColor={isDarkMode ? "#262626" : "#D9D9D955"}
+                className="p-0"
               >
-                {isSubmitting ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <FiSend aria-hidden="true" /> Send Message
-                  </>
-                )}
-              </motion.button>
-              
-              {submitStatus === 'success' && (
-                <motion.div
-                  className="mt-4 p-3 bg-green-100 text-green-700 rounded-md"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  role="alert"
-                  aria-live="polite"
-                >
-                  Your message has been sent successfully! I'll get back to you soon.
-                </motion.div>
-              )}
-              
-              {submitStatus === 'error' && (
-                <motion.div
-                  className="mt-4 p-3 bg-red-100 text-red-700 rounded-md"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  role="alert"
-                  aria-live="assertive"
-                >
-                  Failed to send your message. Please try again later.
-                </motion.div>
-              )}
-            </form>
+                <CardHeader className="border-border border-b p-6 [.border-b]:pb-6">
+                  <CardTitle className="text-2xl font-bold">Send Me a Message</CardTitle>
+                  <CardDescription>
+                    Have a project in mind? Let's discuss how we can work together.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <form ref={form} onSubmit={handleSubmit} aria-label="Contact form">
+                    <div className="grid gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="name">Your Name</Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          placeholder="John Doe"
+                        />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="email">Your Email</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          placeholder="john@example.com"
+                        />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="subject">Subject</Label>
+                        <Input
+                          id="subject"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleChange}
+                          required
+                          placeholder="Project Inquiry"
+                        />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="message">Your Message</Label>
+                        <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          required
+                          rows="5"
+                          className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                          placeholder="Hello, I'd like to discuss a project..."
+                        />
+                      </div>
+                    </div>
+
+                    {submitStatus === 'success' && (
+                      <motion.div
+                        className="mt-4 p-3 bg-green-100 text-green-700 rounded-md dark:bg-green-900 dark:text-green-300"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        role="alert"
+                        aria-live="polite"
+                      >
+                        Your message has been sent successfully! I'll get back to you soon.
+                      </motion.div>
+                    )}
+
+                    {submitStatus === 'error' && (
+                      <motion.div
+                        className="mt-4 p-3 bg-red-100 text-red-700 rounded-md dark:bg-red-900 dark:text-red-300"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        role="alert"
+                        aria-live="assertive"
+                      >
+                        Failed to send your message. Please try again later.
+                      </motion.div>
+                    )}
+                  </form>
+                </CardContent>
+                <CardFooter className="border-border border-t p-6 [.border-t]:pt-6">
+                  <Button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="w-full flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <FiSend aria-hidden="true" /> Send Message
+                      </>
+                    )}
+                  </Button>
+                </CardFooter>
+              </MagicCard>
+            </Card>
           </motion.div>
           
           {/* Contact Information */}

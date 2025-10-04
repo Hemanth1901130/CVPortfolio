@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion as m } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
-import ThemeSwitch from './ThemeSwitch';
+import { AnimatedThemeToggler } from './ui/animated-theme-toggler';
 import profImage from '../assets/images/prof.jpg';
 
 const Navbar = () => {
@@ -81,13 +81,13 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: navLinks.length * 0.1 }}
               >
-                <ThemeSwitch />
+                <AnimatedThemeToggler className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" />
               </m.div>
             </div>
           </div>
 
           <div className="md:hidden flex items-center gap-2">
-            <ThemeSwitch />
+            <AnimatedThemeToggler className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" />
             <m.button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-dark dark:text-light hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"

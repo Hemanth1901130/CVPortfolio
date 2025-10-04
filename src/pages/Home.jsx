@@ -19,6 +19,7 @@ import {
   ParallaxScroll,
   MorphingBackground,
 } from "../components/AdvancedAnimations";
+import { ShinyButton } from "../components/ui/shiny-button";
 import cvPdf from "../assets/images/Pamarthi_HemanthSrinivas_CV.pdf";
 
 const Home = () => {
@@ -59,7 +60,7 @@ const Home = () => {
                     transition={{ duration: 0.8, delay: 0.3 }}
                   >
                     Hi, I'm{" "}
-                    <GradientText gradient="Secondary" className="block">
+                    <GradientText gradient="primary" className="block">
                       <TypewriterEffect
                         text="Hemanth Srinivas"
                         speed={400}
@@ -95,15 +96,14 @@ const Home = () => {
                 </motion.p>
 
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col sm:flex-row gap-6"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 1.4 }}
                 >
-                  <MagneticButton
-                    as={Link}
-                    to="/projects"
-                    className="btn-primary magnetic-hover group"
+                  <ShinyButton
+                    onClick={() => window.location.href = '/projects'}
+                    className="px-6 py-3 text-base font-medium bg-black/60 backdrop-blur-sm border-white/20"
                   >
                     <span className="flex items-center gap-2">
                       <FiUser size={18} />
@@ -116,13 +116,13 @@ const Home = () => {
                         <FiArrowRight size={18} />
                       </motion.span>
                     </span>
-                  </MagneticButton>
+                  </ShinyButton>
 
                   <MagneticButton
                     as="a"
                     href={cvPdf}
                     download
-                    className="btn-outline magnetic-hover"
+                    className="btn-outline magnetic-hover px-6 py-3 text-base font-medium"
                   >
                     <span className="flex items-center gap-2">
                       <FiDownload size={18} />
@@ -190,7 +190,7 @@ const Home = () => {
           <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <RevealAnimation animation="fadeUp" className="text-center mb-16">
               <GradientText
-                gradient="primary-secondary"
+                gradient="primary"
                 className="text-4xl md:text-5xl font-bold mb-4"
               >
                 My Expertise

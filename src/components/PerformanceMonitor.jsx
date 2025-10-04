@@ -32,7 +32,7 @@ const PerformanceMonitor = ({
       setMetrics((prev) => ({ ...prev, lcp: Math.round(lastEntry.startTime) }));
 
       if (logToConsole) {
-        console.log("🎯 LCP:", Math.round(lastEntry.startTime), "ms");
+        // console.log("🎯 LCP:", Math.round(lastEntry.startTime), "ms");
       }
     });
 
@@ -45,11 +45,11 @@ const PerformanceMonitor = ({
         }));
 
         if (logToConsole) {
-          console.log(
-            "⚡ FID:",
-            Math.round(entry.processingStart - entry.startTime),
-            "ms"
-          );
+          // console.log(
+          //   "⚡ FID:",
+          //   Math.round(entry.processingStart - entry.startTime),
+          //   "ms"
+          // );
         }
       });
     });
@@ -68,7 +68,7 @@ const PerformanceMonitor = ({
       }));
 
       if (logToConsole && clsValue > 0) {
-        console.log("📐 CLS:", Math.round(clsValue * 1000) / 1000);
+        // console.log("📐 CLS:", Math.round(clsValue * 1000) / 1000);
       }
     });
 
@@ -106,12 +106,12 @@ const PerformanceMonitor = ({
     }));
 
     if (logToConsole) {
-      console.log("🚀 Performance Metrics:", {
-        FCP: fcp ? `${Math.round(fcp.startTime)}ms` : "N/A",
-        TTFB: `${Math.round(ttfb)}ms`,
-        "Load Time": `${Math.round(loadTime)}ms`,
-        "DOM Nodes": document.querySelectorAll("*").length,
-      });
+      // console.log("🚀 Performance Metrics:", {
+      //   FCP: fcp ? `${Math.round(fcp.startTime)}ms` : "N/A",
+      //   TTFB: `${Math.round(ttfb)}ms`,
+      //   "Load Time": `${Math.round(loadTime)}ms`,
+      //   "DOM Nodes": document.querySelectorAll("*").length,
+      // });
     }
   }, [logToConsole]);
 

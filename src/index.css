@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
-
 @import './styles/design-system.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 html {
   scroll-behavior: smooth;
@@ -23,8 +21,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  position: relative;
 }
-
 
 .btn {
   @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-medium;
@@ -81,7 +79,6 @@ body {
   @apply focus:ring-gray-500;
 }
 
-
 .glass {
   @apply glass-effect;
 }
@@ -102,7 +99,6 @@ body {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-
 .magnetic-hover {
   transition: transform var(--duration-200) var(--ease-out);
   cursor: none;
@@ -111,7 +107,6 @@ body {
 .magnetic-hover:hover {
   transform: scale(1.02);
 }
-
 
 @keyframes slideInFromLeft {
   0% {
@@ -179,7 +174,6 @@ body {
   }
 }
 
-
 .reveal {
   opacity: 0;
   transform: translateY(50px);
@@ -203,7 +197,6 @@ body {
   transition-delay: 300ms;
 }
 
-
 .text-gradient {
   @apply text-gradient-primary;
 }
@@ -215,7 +208,6 @@ body {
 .text-shadow-lg {
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
 }
-
 
 .interactive-card {
   @apply glass-card hover-lift cursor-pointer;
@@ -230,7 +222,6 @@ body {
 .interactive-card:active {
   transform: translateY(-4px) scale(1.01);
 }
-
 
 .skeleton {
   @apply animate-pulse bg-gray-200 rounded;
@@ -250,7 +241,6 @@ body {
     background-position: 200% 0;
   }
 }
-
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -272,7 +262,6 @@ body {
   background: linear-gradient(135deg, var(--color-primary-600), var(--color-accent-600));
 }
 
-
 .will-change-transform {
   will-change: transform;
 }
@@ -287,17 +276,15 @@ body {
   perspective: 1000px;
 }
 
-
 @media (max-width: 640px) {
   .btn {
     @apply px-4 py-2 text-sm;
   }
-  
+
   .glass-card {
     @apply p-4;
   }
 }
-
 
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -306,13 +293,12 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   .reveal {
     opacity: 1;
     transform: none;
   }
 }
-
 
 @media print {
   .glass-effect,
@@ -321,10 +307,15 @@ body {
     backdrop-filter: none !important;
     border: 1px solid #ccc !important;
   }
-  
+
   .btn {
     background: white !important;
     color: black !important;
     border: 1px solid black !important;
   }
+}
+
+::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }

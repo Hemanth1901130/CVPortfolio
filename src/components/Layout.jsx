@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
             <div className="fixed inset-0 bg-gradient-to-br from-blue-400 to-blue-600 -z-20"></div>
             <ScrollProgress />
             <Navbar />
-            <main className="flex-grow">
+            <main className="flex-grow relative">
               {children}
             </main>
             <Footer />

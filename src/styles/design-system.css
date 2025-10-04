@@ -50,6 +50,9 @@
   --color-error-50: #fef2f2;
   --color-error-500: #ef4444;
   --color-error-600: #dc2626;
+
+  /* Shiny Button variables */
+  --primary: var(--color-primary-500);
   
   
   
