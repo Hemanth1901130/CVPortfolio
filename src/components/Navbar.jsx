@@ -86,10 +86,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="md:hidden flex items-center">
-            <div className="mr-2">
-              <ThemeSwitch />
-            </div>
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeSwitch />
             <m.button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-dark dark:text-light hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"

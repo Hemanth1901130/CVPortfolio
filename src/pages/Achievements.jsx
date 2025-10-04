@@ -1,71 +1,66 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import OptimizedImage from '../components/OptimizedImage';
-import SkeletonLoader from '../components/SkeletonLoader';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import OptimizedImage from "../components/OptimizedImage";
+import SkeletonLoader from "../components/SkeletonLoader";
+import { PinContainer } from "../components/ui/3d-pin";
+import { RevealAnimation } from "../components/AdvancedAnimations";
 
-// Import certificate images
-import javaCert from '../assets/images/certificates/java-cert.png';
-import caseCert from '../assets/images/certificates/case-cert.png';
-import systemCert from '../assets/images/certificates/system-cert.png';
+import javaCert from "../assets/images/certificates/java-cert.png";
+import caseCert from "../assets/images/certificates/case-cert.png";
+import systemCert from "../assets/images/certificates/system-cert.png";
 
-/**
- * Achievements page component
- * Displays certifications and achievements
- * 
- * @returns {JSX.Element} The Achievements page component
- */
 const Achievements = () => {
   const [loading, setLoading] = useState(true);
 
-  // Simulate loading state
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1000);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
-  // Certificate data
   const certificates = [
     {
       id: 1,
-      title: 'Java Programming',
-      issuer: 'Oracle',
-      date: 'June 2023',
-      description: 'Advanced Java programming certification covering core concepts, data structures, and application development.',
+      title: "Java Programming",
+      issuer: "Jspiders",
+      date: "June 2023",
+      description:
+        "Advanced Java programming certification covering core concepts, data structures, and application development.",
       image: javaCert,
-      alt: 'Java Programming Certificate'
+      alt: "Java Programming Certificate",
     },
     {
       id: 2,
-      title: 'CASE Certification',
-      issuer: 'IEEE',
-      date: 'August 2023',
-      description: 'Certified Associate in Software Engineering (CASE) demonstrating proficiency in software development methodologies.',
+      title: "CASE Study",
+      issuer: "IIIT Guwahati",
+      date: "August 2023",
+      description:
+        " Certification for winning a comprehensive CASE study on marketing practices and methodologies.",
       image: caseCert,
-      alt: 'CASE Certificate'
+      alt: "CASE Study Certificate",
     },
     {
       id: 3,
-      title: 'Systems Architecture',
-      issuer: 'Microsoft',
-      date: 'October 2023',
-      description: 'Certification in designing and implementing scalable system architectures for enterprise applications.',
+      title: "Systems Architecture",
+      issuer: "EI Systems",
+      date: "October 2023",
+      description:
+        "Certification in designing and implementing scalable system architectures for enterprise applications.",
       image: systemCert,
-      alt: 'Systems Architecture Certificate'
-    }
+      alt: "Systems Architecture Certificate",
+    },
   ];
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -74,10 +69,10 @@ const Achievements = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: 'spring',
-        stiffness: 100
-      }
-    }
+        type: "spring",
+        stiffness: 100,
+      },
+    },
   };
 
   return (
@@ -88,7 +83,8 @@ const Achievements = () => {
             Achievements & Certifications
           </h1>
           <p className="text-lg text-gray-200 max-w-3xl mx-auto">
-            A showcase of my professional certifications and notable achievements in the field of software development.
+            A showcase of my professional certifications and notable
+            achievements in the field of software development.
           </p>
         </div>
 
@@ -99,55 +95,71 @@ const Achievements = () => {
             ))}
           </div>
         ) : (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {certificates.map((cert) => (
-              <motion.div
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {certificates.map((cert, index) => (
+              <RevealAnimation
                 key={cert.id}
-                variants={itemVariants}
-                className="bg-black/25 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden flex flex-col h-full transform transition-transform hover:scale-105"
+                animation="fadeUp"
+                delay={index * 150}
+                className="flex items-center justify-center h-[28rem]"
               >
-                <div className="relative h-48 w-full">
-                  <OptimizedImage
-                    src={cert.image}
-                    alt={cert.alt}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6 flex-grow">
-                  <div className="flex justify-between items-start mb-2">
-                    <h2 className="text-xl font-semibold text-white">
-                      {cert.title}
-                    </h2>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-black bg-opacity-10 text-primary">
-                      {cert.date}
-                    </span>
+                <PinContainer
+                  title={cert.title}
+                  href={cert.image}
+                  containerClassName="w-full h-full"
+                  className="w-[22rem] h-[22rem]"
+                >
+                  <div className="flex basis-full flex-col p-6 tracking-tight text-slate-100/50 w-[22rem] h-[22rem]">
+                    {}
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3 className="max-w-xs !pb-1 !m-0 font-bold text-base text-slate-100 line-clamp-2">
+                          {cert.title}
+                        </h3>
+                        <p className="text-xs text-slate-400 mb-2">
+                          by {cert.issuer}
+                        </p>
+                      </div>
+
+                      {}
+                      <div className="px-2 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-xs font-medium">
+                        {cert.date}
+                      </div>
+                    </div>
+
+                    {}
+                    <div className="text-xs !m-0 !p-0 font-normal flex-1">
+                      <span className="text-slate-400 line-clamp-3">
+                        {cert.description}
+                      </span>
+                    </div>
+
+                    {}
+                    <div className="flex flex-1 w-full rounded-lg mt-4 overflow-hidden bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 h-40">
+                      <OptimizedImage
+                        src={cert.image}
+                        alt={cert.alt}
+                        className="w-full h-full object-cover opacity-90"
+                      />
+                    </div>
+
+                    {}
+                    <div className="mt-4">
+                      <a
+                        href={cert.image}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white rounded-lg text-sm font-medium transition-all"
+                      >
+                        <span>View Certificate</span>
+                      </a>
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-300 mb-4">
-                    Issued by {cert.issuer}
-                  </p>
-                  <p className="text-gray-200">
-                    {cert.description}
-                  </p>
-                </div>
-                <div className="px-6 py-4 bg-black/30 backdrop-blur-sm">
-                  <button
-                    className="w-full flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary text-secondary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                    aria-label={`View ${cert.title} certificate`}
-                  >
-                    View Certificate
-                  </button>
-                </div>
-              </motion.div>
+                </PinContainer>
+              </RevealAnimation>
             ))}
-          </motion.div>
+          </div>
         )}
-
-
       </div>
     </div>
   );

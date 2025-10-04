@@ -1,84 +1,66 @@
-import { useState } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion';
-import { FiSun, FiMoon, FiChevronDown, FiCheck } from 'react-icons/fi';
-import { useTheme } from '../context/ThemeContext';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiSun, FiMoon } from "react-icons/fi";
+import { useTheme } from "../context/ThemeContext";
 
 const ThemeSwitch = () => {
-  const { currentTheme, isDarkMode, themes, toggleDarkMode, changeTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const closeDropdown = () => setIsOpen(false);
-
-  const handleThemeChange = (themeName) => {
-    changeTheme(themeName);
-    closeDropdown();
-  };
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
   return (
-    <div className="relative">
-      <motion.button
-        onClick={toggleDarkMode}
-        className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-dark dark:text-light mr-2"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+    <motion.button
+      onClick={toggleDarkMode}
+      className="relative flex items-center justify-center w-12 h-6 bg-gray-200 dark:bg-gray-700 rounded-full p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {}
+      <div className="absolute inset-1 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 transition-opacity duration-300" />
+
+      {}
+      <motion.div
+        className="relative z-10 flex items-center justify-center w-4 h-4 bg-white dark:bg-gray-800 rounded-full shadow-md"
+        animate={{ x: isDarkMode ? 14 : 0 }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
       >
-        {isDarkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
-      </motion.button>
-
-      <div className="inline-block">
-        <motion.button
-          onClick={toggleDropdown}
-          className="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-800 text-dark dark:text-light"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span 
-            className="block w-4 h-4 rounded-full" 
-            style={{ backgroundColor: themes[currentTheme].primary }}
-          />
-          <span className="hidden sm:inline capitalize">{currentTheme}</span>
-          <FiChevronDown 
-            size={16} 
-            className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
-          />
-        </motion.button>
-
-        <AnimatePresence>
-          {isOpen && (
+        <AnimatePresence mode="wait">
+          {isDarkMode ? (
             <motion.div
-              className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-10"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              key="moon"
+              initial={{ opacity: 0, rotate: -180, scale: 0 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 180, scale: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-yellow-400"
             >
-              <div className="py-1">
-                {Object.keys(themes).map((themeName) => (
-                  <button
-                    key={themeName}
-                    onClick={() => handleThemeChange(themeName)}
-                    className="flex items-center justify-between w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span 
-                        className="block w-4 h-4 rounded-full" 
-                        style={{ backgroundColor: themes[themeName].primary }}
-                      />
-                      <span className="capitalize">{themeName}</span>
-                    </div>
-                    {currentTheme === themeName && (
-                      <FiCheck size={16} className="text-primary" />
-                    )}
-                  </button>
-                ))}
-              </div>
+              <FiMoon size={10} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="sun"
+              initial={{ opacity: 0, rotate: -180, scale: 0 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 180, scale: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-yellow-500"
+            >
+              <FiSun size={10} />
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </div>
+      </motion.div>
+
+      {}
+      <motion.div
+        className="absolute inset-0 rounded-full"
+        animate={{
+          boxShadow: isDarkMode
+            ? "0 0 8px rgba(59, 130, 246, 0.4)"
+            : "0 0 8px rgba(251, 191, 36, 0.4)",
+        }}
+        transition={{ duration: 0.3 }}
+      />
+    </motion.button>
   );
 };
 
