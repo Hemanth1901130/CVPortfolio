@@ -5,9 +5,9 @@ import SkeletonLoader from "../components/SkeletonLoader";
 import { PinContainer } from "../components/ui/3d-pin";
 import { RevealAnimation } from "../components/AdvancedAnimations";
 
-import javaCert from "../assets/images/certificates/java-cert.png";
-import caseCert from "../assets/images/certificates/case-cert.png";
-import systemCert from "../assets/images/certificates/system-cert.png";
+const javaCert = "/certificates/java-cert.png";
+const caseCert = "/certificates/case-cert.png";
+const systemCert = "/certificates/system-cert.png";
 
 const Achievements = () => {
   const [loading, setLoading] = useState(true);
